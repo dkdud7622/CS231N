@@ -3,16 +3,16 @@ np.random.seed(0)
 import tensorflow as tf
 
 N,D = 3,4
+with tf.device('/cpu:0') :
+    x = tf.Variable(tf.ones(dtype = tf.float32))
+    y = tf.Variable(tf.ones(dtype = tf.float32))
+    z = tf.Variable(tf.ones(dtype = tf.float32))
 
-x = tf.Variable(tf.ones(dtype = tf.float32))
-y = tf.Variable(tf.ones(dtype = tf.float32))
-z = tf.Variable(tf.ones(dtype = tf.float32))
+    a = x*y
+    b = a+z
+    c = tf.reduce_sum(b)
 
-a = x*y
-b = a+z
-c = tf.reduce_sum(b)
-
-grad_x, grad_y, grad_z = tf.gradients(c,[x,y,z])
+    grad_x, grad_y, grad_z = tf.gradients(c,[x,y,z])
 
 with tf.Session() as sess :
     values = {
